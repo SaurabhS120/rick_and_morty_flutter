@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   if (notification is ScrollEndNotification) {
                     final metrics = notification.metrics;
 
-                    if (metrics.pixels >= metrics.maxScrollExtent) {
+                    if (metrics.pixels >= metrics.maxScrollExtent-500) {
                       // At bottom — load next page
                       context.read<CharacterBloc>().add(CharacterBlocFetchNextPageEvent());
                       return true; // handled
