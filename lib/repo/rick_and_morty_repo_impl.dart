@@ -4,6 +4,8 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:rick_and_morty_flutter/main.dart';
 import 'package:rick_and_morty_flutter/model/character_model.dart';
 import 'package:rick_and_morty_flutter/repo/rick_and_morty_repo.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
+
 class RickAndMortyRepoImpl implements RickAndMortyRepo {
   final Dio dio = Dio(BaseOptions(baseUrl: 'https://rickandmortyapi.com/api'));
   RickAndMortyRepoImpl() {
@@ -25,6 +27,16 @@ class RickAndMortyRepoImpl implements RickAndMortyRepo {
         }
       },
     ));
+    dio.interceptors.add(
+      TalkerDioLogger(
+        talker: talker,
+        settings: const TalkerDioLoggerSettings(
+          printRequestHeaders: true,
+          printResponseHeaders: true,
+          printResponseMessage: true,
+        ),
+      ),
+    );
   }
 
   @override

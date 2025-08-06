@@ -7,8 +7,11 @@ import 'package:rick_and_morty_flutter/model/character_model.dart';
 import 'package:rick_and_morty_flutter/repo/rick_and_morty_repo.dart';
 import 'package:rick_and_morty_flutter/repo/rick_and_morty_repo_impl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
+late Talker talker;
 void main() {
+  talker = TalkerFlutter.init();
   runApp(const MyApp());
 }
 final Alice alice = Alice(showNotification: true, navigatorKey: navigatorKey);
@@ -63,6 +66,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(icon:Icon(Icons.history), onPressed: () { 
+            Navigator.of(context).push(
+  MaterialPageRoute(
+    builder: (context) => TalkerScreen(talker: talker),
+  )
+);
+           },),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async =>
