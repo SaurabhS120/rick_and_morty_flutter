@@ -1,6 +1,8 @@
 import 'package:alice/alice.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_flutter/character_bloc.dart';
 import 'package:rick_and_morty_flutter/model/character_model.dart';
@@ -12,6 +14,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 late Talker talker;
 void main() {
   talker = TalkerFlutter.init();
+  ChuckerFlutter.showOnRelease = true;
   runApp(const MyApp());
 }
 final Alice alice = Alice(showNotification: true, navigatorKey: navigatorKey);
@@ -34,6 +37,9 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Rick and Morty Flutter',
           navigatorKey: navigatorKey,
+          navigatorObservers: [
+            ChuckerFlutter.navigatorObserver,
+          ],
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
